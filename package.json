@@ -12,6 +12,7 @@
     "nuxt": "^3.1.2"
   },
   "dependencies": {
-    "country-code-emoji": "^2.3.0"
+    "country-code-emoji": "^2.3.0",
+    "globe.gl": "^2.28.4"
   }
 }

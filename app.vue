@@ -137,11 +137,11 @@ const getData = async () => {
 
             myFootprints.value = footprints.value
             .filter((fp: any) => fp.createdBy.email === email.value)
-
             const coordinates = myFootprints.value.map((coords: any) => ({
                 lat: coords.latitude,
                 lon: coords.longitude,
             }))
+            console.time('reverse-geo')
             const reversedGeoData = await (await fetch('https://n1j0.netlify.app/.netlify/functions/reverse-geo', {
                 method: 'POST',
                 headers: {
@@ -149,6 +149,7 @@ const getData = async () => {
                 },
                 body: JSON.stringify(coordinates),
             })).json()
+            console.timeEnd('reverse-geo')
 
             myFootprints.value = myFootprints.value
             .map((fp: any, index: number) => ({
@@ -191,7 +192,7 @@ const getData = async () => {
                 <td>{{ country.count }}</td>
             </tr>
         </table>
-        <world v-if="countryCodes.length > 0" :countries="countryCodes"/>
+        <globe v-if="countryCodes.length > 0" :countries="countryCodes"/>
         <div class="footprints">
             <div v-for="fp in myFootprints" :key="fp.id">
                 <h2>{{ fp.title }}</h2>
